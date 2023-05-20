@@ -1,50 +1,37 @@
-const express = require('express')
-const cors = require('cors')
-const bodyParser = require('body-parser')
-const { mongoose } = require('mongoose')
-const passport = require('passport')
-const path = require('path')
+const express = require('express');
+const {mongoose} = require('mongoose');
+const app = express();
+require('dotenv').config();
+const cors = require('cors');
 
-const config = require('./config/db')
-const account = require('./routes/account')
+const {PORT, MONGO_URL} = require("./config/config");
+const {mainErrorHandler} = require('./errors');
+const {authRouter, userRouter} = require('./routes');
 
-const app = express()
-
-const port = 3000
-
-app.use(cors())
-app.use(bodyParser.json())
-app.use(passport.initialize())
-app.use(passport.session())
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cors({ origin: 'http://localhost:4200' }));
+app.get('/', (req, res) => {
+    res.json('There should be some kind of API documentation... try: /auth or /users')
+});
 
-require('./config/passport')(passport)
-
-
-
-
-
-
-app.get('/', function(req, res) {
-    res.send('Головна сторінка')
+app.use('/auth', authRouter);
+app.use('/users', userRouter);
+app.use('*', (req, res, next) => {
+    next(new Error('Route not found'))
 })
+app.use(mainErrorHandler)
 
-app.use('/account', account)
-
-app.use('/public', express.static(path.join(__dirname, 'public')))
-
-app.listen(port, function() {
-    console.log("Сервер був запущен по порту: " + port)
-
-    mongoose.connect(config.db, /*{ useNewUrlParser: true, useUnifiedTopology: true }*/)
-
-    mongoose.connection.on('connected', function() {
-        console.log("Підключення до бд пройшло успішно")
-    })
-
-    mongoose.connection.on('error', function(err) {
-        console.log("Підключення до бд пройшло не успішно: " + err)
-    })
-})
-
+app.listen(PORT, () => {
+    console.log("Done... running on the port:" + PORT)
+    mongoose.connect(MONGO_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
+    mongoose.connection.on("connected", () => {
+        console.log("Connected to database success...");
+    });
+    mongoose.connection.on("error", (err) => {
+        console.log("Database connecting error:" + err);
+    });
+});
