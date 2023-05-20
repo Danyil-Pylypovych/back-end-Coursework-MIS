@@ -32,6 +32,8 @@ userRouter.delete(
     userMdlwr.checkIsUserIdPresent,
     userController.deleteUser,
 );
+//todo can help methods
+
 // userRouter.get(
 //     '/onebyparams',
 //     userController.getUserByParams,
