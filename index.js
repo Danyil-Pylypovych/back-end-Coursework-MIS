@@ -6,7 +6,7 @@ const cors = require('cors');
 
 const {PORT, MONGO_URL} = require("./config/config");
 const {mainErrorHandler} = require('./errors');
-const {authRouter, userRouter} = require('./routes');
+const {authRouter, userRouter, timetableRouter} = require('./routes');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authRouter);
 app.use('/users', userRouter);
+app.use('/timetable', timetableRouter);
 app.use('*', (req, res, next) => {
     next(new Error('Route not found'))
 })

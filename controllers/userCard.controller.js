@@ -1,26 +1,47 @@
-const {userService, tokenService, authService} = require("../services");
+const {userService, tokenService, authService, userCardService,} = require("../services");
 const {statusCode} = require("../constants");
+const { STATES } = require("mongoose");
 
 module.exports = {
-    getAllUsers: async (req, res, next) => {
+    getAllUserCards: async (req, res, next) => {
         try {
-            const users = await userService.getAllUsers();
+            const {my_user} = req.tokenInfo;
+            const userCards = await userCardService.getAllUserCards(my_user);
 
-            res.json(users);
+            res.json(userCards);
         } catch (e) {
             next(e);
         }
     },
-    getUserById: async (req, res, next) => {
+    getAllUserCardsByUserId: async (req, res, next) => {
         try {
             const {user} = req;
+            const userCards = await userCardService.getAllUserCards({my_user: user._id});
 
-            res.json(user);
+            res.json(userCards);
         } catch (e) {
             next(e);
         }
     },
+    getUserCardById: async (req, res, next) => {
+        try {
+            const {userCard} = req;
 
+            res.json(userCard);
+        } catch (e) {
+            next(e);
+        }
+    },
+    createUserCard: async (req, res, next) => {
+        try {
+            const {user} = req;
+            const userCard = await userCardService.createUserCard({...req.body, my_user: user._id});
+
+            res.json(userCard).status(statusCode.CREATE);
+        } catch (e) {
+            next(e)
+        }
+    },
     getUserByToken: async (req, res, next) => {
         try {
             const {token} = req.params;
@@ -63,21 +84,4 @@ module.exports = {
             next(e);
         }
     },
-    getDoctors: async (req, res, next) => {
-        try {
-            const specialty = req.body;
-            let usersDoctors;
-            if(specialty) {
-                usersDoctors = await userService.findDoctors(specialty);
-            } else {
-                usersDoctors = await userService.findDoctors();
-            }
-
-            res.json(usersDoctors);
-            next();
-        } catch (e) {
-            next(e);
-        }
-    },
-
 }

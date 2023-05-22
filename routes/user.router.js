@@ -1,9 +1,10 @@
 const {Router} = require('express');
 
-const {userController} = require("../controllers");
+const {userController, userCardController} = require("../controllers");
 const {
     userMdlwr,
     authMdlwr,
+    userCardMdlwr,
 } = require("../middlewares");
 
 const userRouter = Router()
@@ -11,6 +12,34 @@ const userRouter = Router()
 userRouter.get(
     '/',
     userController.getAllUsers,
+);
+/*userRouter.get(
+    '/clientCard',
+    userCardMdlwr.checkIsIdValid,
+    userCardMdlwr.checkIsUserCardIdPresent,
+    userCardController.getUserCardById,
+);*/
+userRouter.get(
+    '/clientCardAll',
+    authMdlwr.checkIsAccessToken,
+    userCardController.getAllUserCards,
+);
+userRouter.get(
+    '/clientCardAll/:userId',
+    userMdlwr.checkIsIdValid,
+    userMdlwr.checkIsUserIdPresent,
+    userCardController.getAllUserCardsByUserId,
+);
+userRouter.post(
+    '/createClientCard/:userId',
+    userCardMdlwr.checkIsBodyValid,
+    userMdlwr.checkIsIdValid,
+    userMdlwr.checkIsUserIdPresent,
+    userCardController.createUserCard,
+);
+userRouter.get(
+    '/doctorsList',
+    userController.getDoctors,
 );
 userRouter.get(
     '/:userId',

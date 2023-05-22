@@ -19,4 +19,10 @@ module.exports = {
     deleteUser(userId) {
         return User.deleteOne({_id: userId});
     },
+    findDoctors(filter = {}) {
+        return User.find({...filter, isDoctor: true});
+    },
+    findSpecialtyDoctor(specialty) {
+        return User.find(specialty);
+    },
 }
