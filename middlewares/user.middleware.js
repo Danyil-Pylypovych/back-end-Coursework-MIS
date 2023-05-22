@@ -1,7 +1,7 @@
 const {isObjectIdOrHexString} = require("mongoose");
 
 const {userService} = require("../services");
-const {ApiError} = require("../Errors/index");
+const {ApiError} = require("../errors/index");
 const {statusCode} = require("../constants");
 const {User} = require("../models");
 
