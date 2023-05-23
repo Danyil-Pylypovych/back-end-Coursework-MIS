@@ -4,10 +4,9 @@ const {timetableController} = require("../controllers");
 const {timetableMdlwr, userMdlwr} = require("../middlewares");
 
 const timetableRouter = Router()
-timetableRouter.get(
+timetableRouter.post(
     '/',
-    userMdlwr.checkIsIdValid,
-    userMdlwr.checkIsUserIdPresent,
+    timetableMdlwr.checkIsDoctor,
     timetableController.getByParams,
 );
 

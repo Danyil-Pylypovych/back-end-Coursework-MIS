@@ -9,6 +9,7 @@ const { request } = require("express");
 module.exports = {
     checkIsIdValid: async (req, res, next) => {
         try {
+            console.log(res.params)
             if (!isObjectIdOrHexString(req.params.userId)) {
                 throw new ApiError('ID invalid', statusCode.CONFLICT);
             }
@@ -21,6 +22,7 @@ module.exports = {
     checkIsUserIdPresent: async (req, res, next) => {
         try {
             const {userId} = req.params;
+            console.log(userId)
             const user = await userService.getUserById(userId);
             if (!user) {
                 throw new ApiError('Wrong user id', statusCode.BAD_REQUEST);

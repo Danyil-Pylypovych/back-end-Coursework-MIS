@@ -23,8 +23,10 @@ module.exports = {
     },
     updateTimetable: async (req, res, next) => {
         try {
-            const {_id} = req.params;
-            const updatedTimetable = await timetableService.updateTimetable(_id, req.body);
+            const {patientId} = req.params;
+            const timetable = req.body
+            const updatedTimetable = await timetableService
+                .updateTimetable({_id:timetable._id}, {...req.body, patientId});
 
             res.status(statusCode.CREATE).json(updatedTimetable);
         } catch (e) {
@@ -35,7 +37,7 @@ module.exports = {
         try {
             const {_id} = req.params;
             await timetableService.deleteTimetable(_id);
-            
+
 
             res.status(statusCode.NO_CONTENT).json('done')
         } catch (e) {
