@@ -16,7 +16,8 @@ module.exports = {
     deleteTimetable(_id) {
         return Timetable.deleteOne(_id);
     },
-    findByDay(day) {
-        return Timetable.find(day);
+    findByParams(params) {
+        return Timetable.find(params);
     },
+    
 }

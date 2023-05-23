@@ -1,16 +1,18 @@
 const {Router} = require('express');
 
 const {timetableController} = require("../controllers");
-const {timetableMdlwr} = require("../middlewares");
+const {timetableMdlwr, userMdlwr} = require("../middlewares");
 
 const timetableRouter = Router()
 timetableRouter.get(
     '/',
-    timetableController.getAll,
+    userMdlwr.checkIsIdValid,
+    userMdlwr.checkIsUserIdPresent,
+    timetableController.getByParams,
 );
 
 timetableRouter.post(
-    '/create/:doctorId',
+    '/create',
     timetableMdlwr.checkIsDoctor,
     timetableController.createTimetable,
 );

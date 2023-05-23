@@ -34,7 +34,7 @@ module.exports = {
     },
     checkIsDoctor: async (req, res, next) => {
         try {
-            const {doctorId} = req.params;
+            const {doctorId} = req.body;
             const user = await userService.getOneByParams({_id: doctorId});
             if (user.isDoctor === false) {
                 throw new ApiError('Not found doctor', statusCode.BAD_REQUEST);

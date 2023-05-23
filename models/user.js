@@ -6,7 +6,7 @@ const userSchema = new Schema({
     password: {type: String, required: true},
     phone: {type: String, required: true, trim: true},
     gender: {type: String, trim: true},
-    birth: {type: Date, trim: true},
+    birth: {type: String, trim: true},
     isDoctor: {type: Boolean, required: true},
     specialty: {type: String},
 

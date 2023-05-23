@@ -45,7 +45,7 @@ module.exports = {
     getByParams: async (req, res, next) => {
         try {
             const params = req.body;
-            const timetables = await timetableService.findByDay(params);
+            const timetables = await timetableService.findByParams(params);
 
             res.json(timetables);
             next();
