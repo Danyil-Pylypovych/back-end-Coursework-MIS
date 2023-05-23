@@ -4,6 +4,9 @@ module.exports = {
     getAllUsers(filter = {}) {
         return User.find(filter)
     },
+    getByParams(filter) {
+        return User.find(filter)
+    },
     getOneByParams(filter) {
         return User.findOne(filter);
     },

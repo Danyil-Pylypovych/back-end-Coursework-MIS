@@ -13,6 +13,10 @@ userRouter.get(
     '/',
     userController.getAllUsers,
 );
+userRouter.post(
+    '/byParams',
+    userController.getUsersByParams,
+);
 /*userRouter.get(
     '/clientCard',
     userCardMdlwr.checkIsIdValid,

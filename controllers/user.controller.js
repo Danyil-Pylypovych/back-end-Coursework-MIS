@@ -11,6 +11,16 @@ module.exports = {
             next(e);
         }
     },
+    getUsersByParams: async (req, res, next) => {
+        try {
+            const params = req.body
+            const users = await userService.getByParams(params);
+
+            res.json(users);
+        } catch (e) {
+            next(e);
+        }
+    },
     getUserById: async (req, res, next) => {
         try {
             const {user} = req;
