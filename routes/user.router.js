@@ -18,6 +18,11 @@ userRouter.post(
     userController.getUsersByParams,
 );
 userRouter.get(
+    '/getByToken',
+    authMdlwr.checkIsAccessToken,
+    userController.getUserByToken,
+);
+userRouter.get(
     '/bySpecialty/:specialty',
     userController.getUsersBySpecialty,
 );

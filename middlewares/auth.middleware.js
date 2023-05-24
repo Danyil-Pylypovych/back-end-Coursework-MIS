@@ -63,6 +63,7 @@ module.exports = {
                 if (!tokenInfo) {
                     throw new ApiError('Token not valid', statusCode.UNAUTHORIZED);
                 }
+                console.log(tokenInfo)
 
                 req.tokenInfo = tokenInfo;
                 next();

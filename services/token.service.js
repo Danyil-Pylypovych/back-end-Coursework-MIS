@@ -47,7 +47,7 @@ module.exports = {
             throw new ApiError('Token invalid...', statusCode.UNAUTHORIZED);
         }
     },
-    getIdFromToken: (token, tokenType = tokenTypeEnum.ACCESS) => {
+    getUserIdFromToken: (token, tokenType = tokenTypeEnum.ACCESS) => {
         try {
             let secretWord;
             switch (tokenType) {
