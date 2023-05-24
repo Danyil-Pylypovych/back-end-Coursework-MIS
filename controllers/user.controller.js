@@ -21,6 +21,16 @@ module.exports = {
             next(e);
         }
     },
+    getUsersBySpecialty: async (req, res, next) => {
+        try {
+            const specialty = req.params
+            const users = await userService.getByParams(specialty);
+
+            res.json(users);
+        } catch (e) {
+            next(e);
+        }
+    },
     getUserById: async (req, res, next) => {
         try {
             const {user} = req;

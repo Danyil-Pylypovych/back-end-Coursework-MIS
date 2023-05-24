@@ -16,7 +16,6 @@ module.exports = {
     getAllUserCardsByUserId: async (req, res, next) => {
         try {
             const {user} = req;
-            console.log(user._id)
             const userCards = await userCardService.getAllUserCards({my_user: user._id});
 
             res.json(userCards);

@@ -17,6 +17,10 @@ userRouter.post(
     '/byParams',
     userController.getUsersByParams,
 );
+userRouter.get(
+    '/bySpecialty/:specialty',
+    userController.getUsersBySpecialty,
+);
 /*userRouter.get(
     '/clientCard',
     userCardMdlwr.checkIsIdValid,
