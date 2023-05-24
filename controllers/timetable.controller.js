@@ -13,8 +13,7 @@ module.exports = {
     },
     createTimetable: async (req, res, next) => {
         try {
-            const {user} = req;
-            const timetable = await timetableService.createTimetable({...req.body, doctorId: user._id});
+            const timetable = await timetableService.createTimetable(req.body);
 
             res.json(timetable);
         } catch (e) {
