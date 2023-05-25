@@ -35,7 +35,7 @@ module.exports = {
     createUserCard: async (req, res, next) => {
         try {
             const {user} = req;
-            const userCard = await userCardService.createUserCard({...req.body, my_user: user._id});
+            const userCard = await userCardService.createUserCard({...req.body, my_user: user._id, });
 
             res.json(userCard).status(statusCode.CREATE);
         } catch (e) {

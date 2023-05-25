@@ -9,11 +9,14 @@ timetableRouter.post(
     timetableMdlwr.checkIsDoctor,
     timetableController.getByParams,
 );
-
 timetableRouter.post(
     '/create',
     timetableMdlwr.checkIsDoctor,
     timetableController.createTimetable,
+);
+timetableRouter.put(
+    '/change/',
+    timetableController.updateTimetableCompleted,
 );
 timetableRouter.put(
     '/change/:patientId',

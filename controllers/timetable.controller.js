@@ -13,7 +13,8 @@ module.exports = {
     },
     createTimetable: async (req, res, next) => {
         try {
-            const timetable = await timetableService.createTimetable(req.body);
+            const timetable = await timetableService
+                .createTimetable({...req.body, isCompleted:false});
 
             res.json(timetable);
         } catch (e) {
@@ -26,6 +27,17 @@ module.exports = {
             const timetable = req.body
             const updatedTimetable = await timetableService
                 .updateTimetable({_id:timetable._id}, {...req.body, patientId});
+
+            res.status(statusCode.CREATE).json(updatedTimetable);
+        } catch (e) {
+            next(e);
+        }
+    },
+    updateTimetableCompleted: async (req, res, next) => {
+        try {
+            const {_id} = req.body
+            const updatedTimetable = await timetableService
+                .updateTimetable({_id}, req.body);
 
             res.status(statusCode.CREATE).json(updatedTimetable);
         } catch (e) {
