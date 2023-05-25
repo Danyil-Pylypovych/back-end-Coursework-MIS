@@ -54,7 +54,6 @@ module.exports = {
         async (req, res, next) => {
             try {
                 const access_token = req.get('Authorization');
-                console.log(access_token)
                 if (!access_token) {
                     throw new ApiError('No token', statusCode.BAD_REQUEST)
                 }
@@ -63,7 +62,6 @@ module.exports = {
                 if (!tokenInfo) {
                     throw new ApiError('Token not valid', statusCode.UNAUTHORIZED);
                 }
-                console.log(tokenInfo)
 
                 req.tokenInfo = tokenInfo;
                 next();

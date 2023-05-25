@@ -46,7 +46,6 @@ module.exports = {
             const {access_token} = req.tokenInfo;
             const _id = await tokenService.getUserIdFromToken(access_token)
             const user = await userService.getUserById(_id)
-            console.log(user)
 
             res.json({...user.toObject(), password: 'done'});
         } catch (e) {
