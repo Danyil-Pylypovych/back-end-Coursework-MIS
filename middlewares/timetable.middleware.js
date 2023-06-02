@@ -1,6 +1,6 @@
 const {isObjectIdOrHexString} = require("mongoose");
 
-const {userService, timetableService} = require("../services");
+const {userService} = require("../services");
 const {ApiError} = require("../errors/index");
 const {statusCode} = require("../constants");
 const {User} = require("../models");
@@ -34,6 +34,7 @@ module.exports = {
     },
     checkIsDoctor: async (req, res, next) => {
         try {
+            console.log(11111)
             const {doctorId} = req.body;
             const user = await userService.getOneByParams({_id: doctorId});
             if (user.isDoctor === false) {
@@ -50,7 +51,7 @@ module.exports = {
         try {
             const {patientId} = req.params;
             const user = await userService.getOneByParams({_id: patientId});
-            
+
             if (user.isDoctor === true) {
                 throw new ApiError('Is not patient', statusCode.BAD_REQUEST);
             }
